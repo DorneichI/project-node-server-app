@@ -10,13 +10,9 @@ export const userLikesMovie = async (userId, movie) => {
   }
   user.likesMovies.push(actualMovie._id);
   actualMovie.likedBy.push(user._id);
-
-  // console.log(user.dislikesMovies, actualMovie.dislikedBy);
-  // user.dislikesMovies.filter((id) => id !== actualMovie.id);
-  // actualMovie.dislikedBy.filter((id) => id !== user._id);
   await user.save();
   await actualMovie.save();
-  return actualMovie;
+  return {movie: actualMovie, user: user};
 };
 export const userDislikesMovie = async (userId, movie) => {
   const user = await userModel.findById(userId);
@@ -26,30 +22,32 @@ export const userDislikesMovie = async (userId, movie) => {
   }
   user.dislikesMovies.push(actualMovie._id);
   actualMovie.dislikedBy.push(user._id);
-  // user.likesMovies.filter((id) => id !== actualMovie.id);
-  // actualMovie.likedBy.filter((id) => id !== user._id);
   await user.save();
   await actualMovie.save();
-  return actualMovie;
+
+  return {movie: actualMovie, user: user};
 };
 
 export const userUnlikesMovie = async (userId, movieId) => {
   const user = await userModel.findById(userId);
   const movie = await movieModel.findOne({ movieId });
-  user.likesMovies = user.likesMovies.filter((id) => id === movie._id);
+  console.log(movie._id)
+  console.log(user)
+  user.likesMovies = user.likesMovies.filter((id) => id.toString() === movie._id.toString());
+  console.log(user)
   movie.likedBy = movie.likedBy.filter((id) => id === user._id);
-  await user.save();
-  const response = await movie.save();
+
+  const response = {movie: await movie.save(), user: await user.save()};
   return response;
 };
 
 export const userUndislikesMovie = async (userId, movieId) => {
   const user = await userModel.findById(userId);
   const movie = await movieModel.findOne({ movieId });
-  user.dislikesMovies = user.dislikesMovies.filter((id) => id === movie._id);
+  user.dislikesMovies = user.dislikesMovies.filter((id) => id.toString() === movie._id.toString());
   movie.dislikedBy = movie.dislikedBy.filter((id) => id === user._id);
-  await user.save();
-  const response = await movie.save(); 
+
+  const response = {movie: await movie.save(), user: await user.save()}; 
   return response;
 };
 

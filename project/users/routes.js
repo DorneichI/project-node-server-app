@@ -27,12 +27,20 @@ export default function UserRoutes(app) {
         res.json(status);
     };
     const signup = async (req, res) => {
+        if (!req.body.username || !req.body.password) {
+            res.status(400).json(
+                { message: "Missing username and/or password" }
+            );
+        }
         const user = await dao.findUserByUsername(req.body.username);
         if (user) {
-          res.status(400).json(
-            { message: "Username already taken" });
+            res.status(400).json(
+                { message: "Username already taken" }
+            );
         }
+        
         const currentUser = await dao.signupUser(req.body);
+
         req.session["currentUser"] = currentUser;
         res.json(currentUser);
       };
@@ -43,7 +51,7 @@ export default function UserRoutes(app) {
             req.session["currentUser"] = currentUser;
             res.json(currentUser);
         } else {
-            res.sendStatus(401);
+            res.status(401).json({ message: "Invalid username or password" });
         }
     };
     const signout = (req, res) => {
@@ -53,8 +61,7 @@ export default function UserRoutes(app) {
     const profile = async (req, res) => {
         const currentUser = req.session["currentUser"];
         if (!currentUser) {
-            res.sendStatus(401);
-            return;
+            res.status(401).json({ message: "No current user" });
         }
         res.json(currentUser);
     };

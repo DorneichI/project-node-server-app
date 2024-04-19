@@ -1,6 +1,7 @@
 import * as dao from "./dao.js";
 export default function PostRoutes(app) {
     const createPost = async (req, res) => {
+        console.log(req.body)
         const post = await dao.createPost(req.body);
         res.json(post);
     };    

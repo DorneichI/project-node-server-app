@@ -1,5 +1,5 @@
 import model from "./model.js";
-export const findAllMovies = model.find();
+export const findAllMovies = () => model.find();
 export const findMovieById = (id) => model.findById(id);
 export const findMovieByMovieId = (movieId) =>
   model.findOne({ movieId });//.populate("likedBy").exec()
