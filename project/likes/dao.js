@@ -31,10 +31,7 @@ export const userDislikesMovie = async (userId, movie) => {
 export const userUnlikesMovie = async (userId, movieId) => {
   const user = await userModel.findById(userId);
   const movie = await movieModel.findOne({ movieId });
-  console.log(movie._id)
-  console.log(user)
   user.likesMovies = user.likesMovies.filter((id) => id.toString() === movie._id.toString());
-  console.log(user)
   movie.likedBy = movie.likedBy.filter((id) => id === user._id);
 
   const response = {movie: await movie.save(), user: await user.save()};

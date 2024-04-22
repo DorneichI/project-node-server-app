@@ -13,7 +13,6 @@ export default function LikesRoutes(app) {
     const movie = req.body;
     const userId = currentUser._id;
     const response = await dao.userDislikesMovie(userId, movie);
-    console.log("dislike",response)
     res.send(response);
   });
 
