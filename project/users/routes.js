@@ -71,15 +71,15 @@ export default function UserRoutes(app) {
         res.json(currentUser);
     };
 
-    app.post("/api/users", createUser);
-    app.get("/api/users", findAllUsers);
-    app.get("/api/users/:userId", findUserById);
-    app.put("/api/users/:userId", updateUser);
-    app.delete("/api/users/:userId", deleteUser);
-    app.post("/api/users/signup", signup);
-    app.post("/api/users/signin", signin);
-    app.post("/api/users/signout", signout);
-    app.post("/api/users/profile", profile);
-    app.post("/api/users/profile/:username", profileByUsername);
+    app.post("/projectapi/users", createUser);
+    app.get("/projectapi/users", findAllUsers);
+    app.get("/projectapi/users/:userId", findUserById);
+    app.put("/projectapi/users/:userId", updateUser);
+    app.delete("/projectapi/users/:userId", deleteUser);
+    app.post("/projectapi/users/signup", signup);
+    app.post("/projectapi/users/signin", signin);
+    app.post("/projectapi/users/signout", signout);
+    app.post("/projectapi/users/profile", profile);
+    app.post("/projectapi/users/profile/:username", profileByUsername);
 }
 

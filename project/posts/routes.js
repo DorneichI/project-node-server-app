@@ -27,11 +27,11 @@ export default function PostRoutes(app) {
         const status = await dao.deletePost(req.params.postId);
         res.json(status);
     };
-    app.post("/api/posts", createPost);
-    app.get("/api/posts", findAllPosts);
-    app.get("/api/posts/:postId", findPostById);
-    app.put("/api/posts/:postId", updatePost);
-    app.delete("/api/posts/:postId", deletePost);
-    app.get("/api/posts/by/:userId", findPostsByUserId);
+    app.post("/projectapi/posts", createPost);
+    app.get("/projectapi/posts", findAllPosts);
+    app.get("/projectapi/posts/:postId", findPostById);
+    app.put("/projectapi/posts/:postId", updatePost);
+    app.delete("/projectapi/posts/:postId", deletePost);
+    app.get("/projectapi/posts/by/:userId", findPostsByUserId);
 }
 
